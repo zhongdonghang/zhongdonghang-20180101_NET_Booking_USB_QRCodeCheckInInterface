@@ -1,0 +1,21 @@
+﻿该接口为明华通用读卡器接口，数据库中有卡片物理编号，仅通过简单的配置即可使用该接口
+配置方法：
+   在需要调用读卡器接口程序的配置文件的AppSetting节点中添加如下三个节点： 
+		<!--0 直接读取，返回十进制字符串；1 直接读取转换为16进制；2 位置调换后的16进制；3 16进制高地位调换后的十进制字符串-->
+		<add key="CardSnType" value="0"/>
+		<!--卡列号长度：Full 长度为标准8位或者10位，不足前面补0；Part 长度为转换后的默认长度-->
+        <add key="cardSnLength" value="Full"/>
+		<!--读卡器接口-->
+		<add key="ICardReader" value="CardReaderObject.CardReaderObject,CardReaderObject"/>
+		<!--读卡操作接口-->
+		<add key="IPOSMethod" value="PosObject.PosObject,PosObject"/>
+
+  PS:  1.记得配置好远程数据访问服务的连接字符串。
+	   2.<add key="CardSnType" value="0"/> 该节点为读卡器接口返回的卡列号类型。
+	     Value值：0为读取后直接返回首位不带0的十进制字符串；
+				  1为读取后转换为长度8位的标准16进制字符串（不足8位前面补0）；
+				  2为高地位调换后的长度8为标准16进制字符串（不足8为前面补0）；
+				  3为高地位调换后转换的十进制字符串（首位不带0）；
+	   3.<add key="cardSnLength" value="Full"/> 该节点为获取到卡列号的长度,即不足位数的是否补0
+	     Value值：Full 为完整的10位或者16位字符串
+		          Part 不强调完整的10位或者16位字符串
